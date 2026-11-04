@@ -3,7 +3,7 @@
 Data: 03/11/2026. Papel: produto. Proposta para revisão do coordenador; sem implementação ou mudança de status no backlog.
 
 - **Origem:** B01 / P0 / M — automatizar build, testes e validação de contrato em CI; depende de B00.
-- **Resultado:** `AGUARDANDO_DECISAO` sobre destino do repositório e provedor de CI. O recorte e os critérios abaixo estão definidos para revisão; execução remota ainda não está pronta.
+- **Resultado atual:** `REFINADO_PARA_COORDENACAO`. Em 04/11/2026 o responsável informou o repositório GitHub `jhoweduardo/autoluguel` e solicitou continuidade pela coordenação. GitHub Actions adotado pelo coordenador como implementação de CI do mesmo serviço. A pergunta de destino abaixo é registro histórico, agora resolvida. Execução remota permanece pendente até configuração revisada e envio autorizado.
 - **Usuário e problema:** como responsável que desenvolve com IA, quero receber um resultado automático e rastreável ao alterar o projeto, para identificar regressões sem repetir manualmente todos os comandos nem confundir build com teste de integração.
 - **Valor esperado:** uma alteração deixa evidências de compilação, testes e contrato na versão verificada; uma falha necessária torna a execução malsucedida. Isso apoia a revisão, sem substituir o QA independente.
 - **Prioridade/tamanho:** manter P0 / M do backlog, sem prazo novo. A base B00 já foi aprovada; B01 prepara verificações repetíveis para os incrementos seguintes.
@@ -116,6 +116,8 @@ A necessidade de integração ainda não automatizada não autoriza desenvolvedo
 - Suite B00 verde confundida com MVP: manter limites atuais e ampliar suites só quando cada história entregar comportamento.
 
 ### Definition of Ready
+
+**Consolidação da coordenação em 04/11/2026:** destino GitHub confirmado; `origin/main` existente com commit inicial. Escopo B01 inclui as suites atuais .NET e Playwright, build, validação OpenAPI e integração mínima de conexão PostgreSQL 200/503. Runner proposto `ubuntu-24.04`, gatilhos push/PR para main e execução manual; token somente leitura, sem secrets externos, sem deploy nem proteção de merge configurada automaticamente. Provedor/destino e atribuição técnica resolvidos; os itens pendentes sobre essa escolha nas seções anteriores são históricos. Ready para implementação local; conclusão ainda exige validação independente e evidência de CI hospedada. Nenhum envio externo ou mudança de visibilidade foi realizado por esta consolidação.
 
 | Item | Avaliação |
 |---|---|

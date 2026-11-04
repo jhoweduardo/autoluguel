@@ -1,0 +1,207 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+  DOTNET_NOLOGO: '1'
+
+# B01: build/contract delivery. Test jobs are added only by independent QA
+# after the coordinator freezes this delivery; these jobs alone are not B01 acceptance.
+jobs:
+  dotnet-build:
+    name: Build .NET
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Setup .NET
+        uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5.4.0
+        with:
+          dotnet-version: '10.0.x'
+      - name: Record revision and SDK
+        run: |
+          git rev-parse HEAD
+          dotnet --info
+      - name: Restore locked dependencies
+        run: dotnet restore Autoluguel.slnx --locked-mode
+      - name: Build
+        run: dotnet build Autoluguel.slnx --configuration Release --no-restore
+      - name: Verify lockfiles unchanged
+        run: git diff --exit-code -- '**/packages.lock.json'
+
+  web-build:
+    name: Build web
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: apps/web
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Record tool versions
+        run: |
+          node --version
+          npm --version
+      - name: Restore locked dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Build
+        run: npm run build
+      - name: Verify lockfile unchanged
+        run: git diff --exit-code -- package-lock.json
+
+  unit-tests:
+    name: Test .NET
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Setup .NET
+        uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5.4.0
+        with:
+          dotnet-version: '10.0.x'
+      - name: Setup Node
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Restore locked dependencies
+        run: dotnet restore Autoluguel.slnx --locked-mode
+      - name: Run required suite and verify discovery
+        run: node tests/ci/run-suite.mjs unit
+
+  web-tests:
+    name: Test web
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Restore locked dependencies
+        run: npm --prefix apps/web ci --no-audit --no-fund
+      - name: Install browser
+        run: cd apps/web && npx playwright install --with-deps chromium
+      - name: Run required suite and verify discovery
+        run: node tests/ci/run-suite.mjs web
+
+  integration-tests:
+    name: Test PostgreSQL connection
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Setup .NET
+        uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5.4.0
+        with:
+          dotnet-version: '10.0.x'
+      - name: Setup Node
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Restore and build host
+        run: |
+          dotnet restore Autoluguel.slnx --locked-mode
+          dotnet build src/Autoluguel.Api/Autoluguel.Api.csproj --configuration Release --no-restore
+      - name: Prepare disposable image
+        run: docker pull postgres:17-alpine
+      - name: Verify readiness with exclusive PostgreSQL and controlled failure
+        run: node tests/ci/readiness.mjs
+
+  gate-tests:
+    name: Test CI failure gates
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Restore locked validator
+        run: npm --prefix tools/ci ci --ignore-scripts --no-audit --no-fund
+      - name: Verify negative cases in temporary copies
+        run: node --test tests/ci/gates.spec.mjs
+
+  required-checks:
+    name: Required CI checks
+    if: ${{ always() }}
+    needs: [dotnet-build, web-build, openapi, unit-tests, web-tests, integration-tests, gate-tests]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - name: Require every check to succeed
+        env:
+          CHECK_RESULTS: ${{ join(needs.*.result, ',') }}
+        run: |
+          IFS=',' read -ra results <<< "$CHECK_RESULTS"
+          for result in "${results[@]}"; do
+            if [[ "$result" != "success" ]]; then
+              echo "Required CI check did not succeed: $result"
+              exit 1
+            fi
+          done
+
+  openapi:
+    name: Validate OpenAPI
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: tools/ci
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Restore locked validator
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Validate schema and references
+        run: npm run validate:openapi
+      - name: Verify lockfile unchanged
+        run: git diff --exit-code -- package-lock.json
