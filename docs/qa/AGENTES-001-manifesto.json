@@ -1,0 +1,64 @@
+{
+  "delivery": "AGENTES-001",
+  "round": 1,
+  "status": "LIBERADO_PARA_QA",
+  "releasedAt": "2026-10-22T17:57:13.5333955-03:00",
+  "authors": [
+    "/root",
+    "/root/frontend",
+    "/root/backend"
+  ],
+  "frontendDelivery": "Recebida e concluída",
+  "backendDelivery": "Recebida e concluída",
+  "scope": "Configuração e documentação dos agentes; nenhum recurso de produto implementado",
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "092afc02e2111d6b79d5b3879651488078ae0cb6c1f9bf946526d8c1acd34985"
+    },
+    {
+      "path": "README.md",
+      "sha256": "dd458393438fa5f363ee3d84da5953fd8e2f0de441f9f0f44af5a01c5d08b8f6"
+    },
+    {
+      "path": ".codex/agents/frontend.toml",
+      "sha256": "8a64349da4e7248e168a11dc28d706a80b05284079d39eb25dc1a72018252a40"
+    },
+    {
+      "path": ".codex/agents/backend.toml",
+      "sha256": "80ac67f64bf232576d57323b015f64ad3db86722e15f8b977ed57206a5ec0c33"
+    },
+    {
+      "path": ".codex/agents/qa.toml",
+      "sha256": "a90f9067a24205b2dd1b08079c8ccc6ccd71d53b2e3141f33c35e7c1260de453"
+    },
+    {
+      "path": "docs/agentes/fluxo-de-trabalho.md",
+      "sha256": "eb9fbcc76dc6c62f99b5eb6aae4777d2f9a7abdee9192c7d695530b07a8d1c1f"
+    },
+    {
+      "path": "docs/agentes/templates/entrega-desenvolvimento.md",
+      "sha256": "adea10b7d2c7d154b12115091f18eaf343d76177b96adc8a154f4d1d84cd0c92"
+    },
+    {
+      "path": "docs/agentes/templates/controle-da-rodada.md",
+      "sha256": "606514290d54ac3470be3b4d2e95e9e4203a1ce8639adfdd3aa1b72c528fee78"
+    },
+    {
+      "path": "docs/agentes/templates/parecer-qa.md",
+      "sha256": "3ad743a521343d64e4c984acdb5e239b76886fb929e0b9be8fab18bc1ccba169"
+    },
+    {
+      "path": "docs/qa/README.md",
+      "sha256": "3ff952f53d34b868a635b8801add3f200a44addc121fa1f79505a6d3e0bb1fd9"
+    },
+    {
+      "path": "docs/plano-de-testes.md",
+      "sha256": "3a2efbe1fc2f1df289e366603e577ec4333aea9c3fd4f9b224725a836b22b2fb"
+    },
+    {
+      "path": "docs/backlog.md",
+      "sha256": "9b49a717c74423f0f3e52c37d50203a4429ac058557f3b20c43cea3427cc66fa"
+    }
+  ]
+}

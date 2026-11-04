@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Autoluguel.Api/Autoluguel.Api.csproj" />
+    <Project Path="src/Autoluguel.BuildingBlocks/Autoluguel.BuildingBlocks.csproj" />
+    <Project Path="src/Autoluguel.Modules/Autoluguel.Modules.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Autoluguel.UnitTests/Autoluguel.UnitTests.csproj" />
+  </Folder>
+</Solution>
