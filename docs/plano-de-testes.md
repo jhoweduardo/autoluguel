@@ -27,7 +27,8 @@ Testes xUnit de domínio: duração de período, datas inválidas, limites adjac
 | Cancelar após início | Unidade/integração | Parte comum não cancela; admin exige motivo | RN20 |
 | Jornada PF e PJ | Playwright + serviços + seeds sintéticos | Publicar carro/moto, buscar, solicitar, aceitar, acompanhar | RF02–07 |
 | Moderação e histórico | Integração/E2E | Some da busca; histórico preservado; auditoria | RF08 |
-| Migração e restauração | PostgreSQL descartável | Subir schema vazio e restaurar backup de teste | B01/B15 |
+| Conexão na CI | PostgreSQL descartável exclusivo | Readiness 200 com banco e 503 em indisponibilidade controlada; falha/ausência de integração não vira sucesso | B01 |
+| Migração e restauração | PostgreSQL descartável | Subir schema vazio quando a primeira migration existir (identidade/perfis) e restaurar backup de teste no gate operacional | B02/B04/B15 |
 | Busca e carga | Benchmark com dataset controlado | Medir p50/p95/erros, recursos e seed; metas PRD | B15 |
 | Acessibilidade | Playwright + inspeção teclado/leitor | Rótulos, foco, erros, contraste; sem barreira crítica | B15 |
 | Busca LLM adversarial | Suite offline + provedor só quando configurado | Gates do roadmap | B17–18 |
