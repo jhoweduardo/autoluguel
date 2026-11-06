@@ -10,7 +10,7 @@ Marketplace brasileiro de aluguel de **carros e motos**, voltado a pessoas físi
 2. Consulte as [regras de negócio](docs/regras-de-negocio.md) antes de implementar um fluxo.
 3. Use a [Tech Spec](docs/TECH-SPEC.md) e o [contrato proposto da API](docs/api/openapi.json).
 4. Escolha uma história do [backlog](docs/backlog.md), respeitando suas dependências.
-5. Siga [AGENTS.md](AGENTS.md) e o [fluxo dos especialistas](docs/agentes/fluxo-de-trabalho.md): frontend/backend desenvolvem e entregam; depois, uma instância QA independente cria e executa os testes.
+5. Siga [AGENTS.md](AGENTS.md) e o [fluxo dos especialistas](docs/agentes/fluxo-de-trabalho.md): frontend/backend desenvolvem e entregam; depois, uma instância QA independente cria e executa os testes. Só após QA aprovado e conclusão registrada para a mesma versão, o coordenador aciona `closeout` para conferir cada critério do refinamento e consolidar as evidências em `docs/entregas/<ID>.md`. Se houver lacunas, os documentos permanecem e o caso volta ao coordenador.
 
 ## Mapa do repositório
 
@@ -26,7 +26,7 @@ docs/                          Produto, arquitetura, regras, backlog e estudo
 docs/adr/                      Registro de decisões
 docs/agentes/                  Coordenação e templates de entrega/QA
 docs/qa/                       Evidências de validação independente
-.codex/agents/                 Perfis frontend, backend e qa
+.codex/agents/                 Perfis product, frontend, backend, qa e closeout
 docs/api/openapi.json           Contrato alvo; ver x-implementation-status
 infra/                         Dockerfiles e proxy web
 compose.yaml                   Ambiente local: PostgreSQL, API e web

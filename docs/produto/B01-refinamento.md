@@ -10,7 +10,7 @@ Data: 03/11/2026. Papel: produto. Proposta para revisão do coordenador; sem imp
 
 ## Fontes e estado observado
 
-Foram consultados [AGENTS.md](../../AGENTS.md), [contexto](../contexto-e-premissas.md), [PRD](../PRD.md), [regras](../regras-de-negocio.md), [Tech Spec](../TECH-SPEC.md), [backlog](../backlog.md), [fluxo dos agentes](../agentes/fluxo-de-trabalho.md), [plano de testes](../plano-de-testes.md), ADRs [0002](../adr/0002-stack-e-persistencia.md) e [0007](../adr/0007-contrato-e-testes.md), [refinamento B00](B00-refinamento.md), [parecer B00](../qa/B00-001-parecer.md) e [controle B00](../qa/B00-001-controle.md).
+Foram consultados [AGENTS.md](../../AGENTS.md), [contexto](../contexto-e-premissas.md), [PRD](../PRD.md), [regras](../regras-de-negocio.md), [Tech Spec](../TECH-SPEC.md), [backlog](../backlog.md), [fluxo dos agentes](../agentes/fluxo-de-trabalho.md), [plano de testes](../plano-de-testes.md), ADRs [0002](../adr/0002-stack-e-persistencia.md) e [0007](../adr/0007-contrato-e-testes.md), e os registros B00 reunidos na [entrega final B00](../entregas/B00.md).
 
 B01 atende ao requisito de manutenção do PRD §7 e à CI prevista na Tech Spec §8. Preserva RN25–26 (dados e demonstração); executa os testes já existentes de RN08/11/13, sem prometer automação das regras ainda não implementadas.
 

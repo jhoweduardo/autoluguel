@@ -17,5 +17,9 @@
 - Alterações de produto posteriores à liberação (invalidam rodada afetada):
 - Correções e nova rodada necessárias:
 - Decisão final, evidências e limitações:
+- Encerramento documental (somente após `APROVADO` e `CONCLUIDA` na mesma versão):
+  - Refinamento aceito, evidências e versão entregues ao `closeout`:
+  - Inventário exato dos documentos exclusivos, referências atribuídas e forma de recuperação:
+  - Resultado: `ENCERRAMENTO_CONSOLIDADO` com caminho final ou `DEVOLVIDO_A_COORDENACAO` com lacunas:
 
 Arquivar registros preenchidos em `docs/qa/`. Não preencher aprovação por padrão nem usar horário fictício. Falta de infraestrutura não equivale a aprovação.

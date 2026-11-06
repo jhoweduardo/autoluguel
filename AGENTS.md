@@ -35,10 +35,11 @@ Prioridade documental: instrução explícita atual do responsável > regras apr
 6. Execute `dotnet test Autoluguel.slnx` e/ou `npm run build` e testes relevantes em `apps/web`, conforme o papel. Testes PostgreSQL devem usar um banco descartável separado.
 7. Registre o que foi realmente executado, falhas e lacunas. Compilar não comprova reserva concorrente nem isolamento. Infraestrutura indisponível ou runner sem encerramento normal significa validação pendente, nunca aprovação por ausência de erro.
 8. Explique a alteração, a decisão e um conceito que o responsável possa aprender. Não declare o MVP pronto sem cumprir o gate do PRD.
+9. Depois do parecer independente `APROVADO` e do registro `CONCLUIDA` para a mesma versão, o coordenador aciona `closeout` com o refinamento aceito e a lista exata de documentos exclusivos da tarefa. Se faltar evidência de algum critério, preserve os documentos e devolva ao coordenador. Se todos forem comprovados, consolide em `docs/entregas/<ID>.md` e remova somente os originais enumerados, recuperáveis e com autorização aplicável.
 
 ## Especialistas e independência
 
-Perfis persistentes: `.codex/agents/product.toml`, `.codex/agents/frontend.toml`, `.codex/agents/backend.toml` e `.codex/agents/qa.toml`. Produto refina tarefas e propõe critérios antes do desenvolvimento; o agente principal atua como coordenador conforme `docs/agentes/fluxo-de-trabalho.md`. Refinamento não aprova novas regras nem substitui QA independente.
+Perfis persistentes em `.codex/agents/`: `product`, `frontend`, `backend`, `qa` e `closeout`. Produto refina tarefas antes do desenvolvimento; o agente principal coordena conforme `docs/agentes/fluxo-de-trabalho.md`. Refinamento e encerramento documental não substituem QA independente.
 
 O agente que implementou uma alteração não pode assumir o papel QA dessa mesma alteração, mesmo trocando de nome ou prompt. Criar instância/contexto separado. Esta regra vale também para correções; o responsável pela implementação nunca emite o parecer independente. O coordenador não substitui QA por uma autoavaliação.
 
