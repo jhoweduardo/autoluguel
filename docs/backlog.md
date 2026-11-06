@@ -2,11 +2,13 @@
 
 Fluxo aplicável às próximas histórias: frontend/backend implementam e entregam; somente então QA independente cria e executa os testes. A atividade de teste integra cada história, não fica adiada para B15. Correções voltam aos desenvolvedores e passam novamente por QA. Consulte [coordenação dos agentes](agentes/fluxo-de-trabalho.md).
 
+Após parecer `APROVADO` e registro `CONCLUIDA` para a mesma versão, o coordenador aciona `closeout` para conferir os critérios aceitos e suas evidências. Se houver lacunas, preserve os originais e devolva ao coordenador. Após consolidação, o item deve apontar para o registro final em `docs/entregas/<ID>.md`; só então podem sair os documentos transitórios exclusivos inventariados, recuperáveis e autorizados.
+
 Estimativas relativas: S = pequena, M = média, L = grande; não equivalem a dias nem compromisso de prazo. Todo item começa como **a fazer**, salvo B00 (estrutura inicial concluída com QA independente em 03/11/2026; consultar evidências). P0 conclui o MVP; P1 é evolução. Executar por dependências, com uma história pequena por vez.
 
 | ID / prioridade / tamanho | História e resultado | Dependências | Aceite verificável |
 |---|---|---|---|
-| B00 / P0 / M | Como desenvolvedor, iniciar web, host, bibliotecas e documentação | — | Build e testes iniciais; Compose válido; README distingue scaffold e produto. Estado: concluída em 03/11/2026, restrita à estrutura inicial; [parecer QA](qa/B00-001-parecer.md) e [controle](qa/B00-001-controle.md). Não representa MVP concluído. |
+| B00 / P0 / M | Como desenvolvedor, iniciar web, host, bibliotecas e documentação | — | Build e testes iniciais; Compose válido; README distingue scaffold e produto. Estado: concluída em 03/11/2026, restrita à estrutura inicial; [entrega final e evidências de QA](entregas/B00.md). Não representa MVP concluído. |
 | B01 / P0 / M | Automatizar build/testes/validação de contrato em CI | B00 | Checkout limpo usa lockfiles; falha de teste bloqueia pipeline; banco de teste isolado; sem publicação automática. |
 | B02 / P0 / L | Cadastrar, entrar, sair e proteger sessão com Identity | B00 | RF01 e RN01/03–05; senha não aparece em logs; 401 JSON; CSRF testado; cadastro não concede admin. |
 | B03 / P0 / M | Recuperar conta com e-mail de desenvolvimento e limitar abuso | B02 | Resposta genérica para conta inexistente; token expira e é de uso único; rate limit retorna 429; nenhuma mensagem real enviada. |

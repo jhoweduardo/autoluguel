@@ -6,6 +6,8 @@ A partir de 22/10/2026, criação e manutenção de testes pertencem ao especial
 
 Os testes iniciais abaixo foram criados antes dessa política. Permanecem úteis, mas não são apresentados como evidência retroativa de independência.
 
+O QA vincula cada resultado ao critério aceito e à versão executada, registrando também resultados negativos, testes não executados e justificativas de não aplicabilidade. Depois de `APROVADO` e `CONCLUIDA` na mesma versão, `closeout` confere essa rastreabilidade. Se faltar prova, devolve a tarefa ao coordenador sem remover documentos; se estiver completa, incorpora as evidências no registro final. Essa conferência documental não substitui o parecer do QA.
+
 ## Existentes no scaffold
 
 Testes xUnit de domínio: duração de período, datas inválidas, limites adjacentes/sobreposição, intervalo máximo e aritmética/limites de preço. Playwright: conteúdo de demonstração e apresentação do produto em desktop e celular. Esses testes não comprovam login, persistência, isolamento ou reservas. O relatório `validacao.md` informa quais foram executados nesta máquina.
