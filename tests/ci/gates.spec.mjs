@@ -55,3 +55,7 @@ test('a genuinely failing test returns a nonzero exit code', () => temporaryCase
   assert.equal(result.status, 1);
   assert.match(result.stdout, /fail 1/);
 }));
+
+test('QA proof: required gate rejects a failing test', () => {
+  assert.equal('observed', 'deliberate QA mismatch');
+});
