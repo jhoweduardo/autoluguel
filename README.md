@@ -78,7 +78,7 @@ O teste Playwright verifica a página inicial, não o fluxo de reservas futuro. 
 
 ## Integração contínua
 
-A B01 está em desenvolvimento: a configuração GitHub Actions prepara builds .NET/web e validação estrutural do OpenAPI com lockfiles. Testes/harness de CI e execução hospedada ainda estão pendentes; esta fase parcial não comprova a B01 concluída. Consulte [CI e reprodução local](docs/ci.md). O workflow não publica a aplicação nem configura proteção de merge.
+A B01 está concluída: o GitHub Actions executa builds, testes unitários e web, verificação de PostgreSQL descartável e validação estrutural do OpenAPI. O QA confirmou que uma falha obrigatória deixa o check agregado vermelho. Consulte [CI e reprodução local](docs/ci.md). O workflow não publica a aplicação nem configura proteção de merge.
 
 ## Documentação
 
