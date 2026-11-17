@@ -13,6 +13,8 @@
 - Limitações e dependências ainda pendentes:
 - Cenários sugeridos ao QA (não substituem sua análise independente):
 - Confirmação de que não criou/modificou testes/fixtures/snapshots/configuração de testes:
-- Referência do conteúdo entregue (commit ou manifesto de hashes):
+- Branch da tarefa e referência de base:
+- SHAs dos commits semânticos (incluindo avanços parciais) e SHA final da fatia:
+- Pendências de Git ou mudanças atribuídas não registradas (se houver, informar bloqueio):
 
 Esta entrega não é um parecer de aprovação. Aguardar coordenador e QA antes de considerar a história concluída.

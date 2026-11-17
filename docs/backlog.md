@@ -4,12 +4,12 @@ Fluxo aplicável às próximas histórias: frontend/backend implementam e entreg
 
 Após parecer `APROVADO` e registro `CONCLUIDA` para a mesma versão, o coordenador aciona `closeout` para conferir os critérios aceitos e suas evidências. Se houver lacunas, preserve os originais e devolva ao coordenador. Após consolidação, o item deve apontar para o registro final em `docs/entregas/<ID>.md`; só então podem sair os documentos transitórios exclusivos inventariados, recuperáveis e autorizados.
 
-Estimativas relativas: S = pequena, M = média, L = grande; não equivalem a dias nem compromisso de prazo. Todo item começa como **a fazer**, salvo B00 (estrutura inicial concluída com QA independente em 03/11/2026; consultar evidências). P0 conclui o MVP; P1 é evolução. Executar por dependências, com uma história pequena por vez.
+Estimativas relativas: S = pequena, M = média, L = grande; não equivalem a dias nem compromisso de prazo. Itens sem estado explícito estão **a fazer**. P0 conclui o MVP; P1 é evolução. Executar por dependências, com uma história pequena por vez.
 
 | ID / prioridade / tamanho | História e resultado | Dependências | Aceite verificável |
 |---|---|---|---|
 | B00 / P0 / M | Como desenvolvedor, iniciar web, host, bibliotecas e documentação | — | Build e testes iniciais; Compose válido; README distingue scaffold e produto. Estado: concluída em 03/11/2026, restrita à estrutura inicial; [entrega final e evidências de QA](entregas/B00.md). Não representa MVP concluído. |
-| B01 / P0 / M | Automatizar build/testes/validação de contrato em CI | B00 | Checkout limpo usa lockfiles; falha de teste bloqueia pipeline; banco de teste isolado; sem publicação automática. |
+| B01 / P0 / M | Automatizar build/testes/validação de contrato em CI | B00 | Checkout limpo usa lockfiles; falha de teste bloqueia pipeline; banco de teste isolado; sem publicação automática. Estado: concluída em 06/11/2026, conforme [entrega final e evidências de QA](entregas/B01.md). |
 | B02 / P0 / L | Cadastrar, entrar, sair e proteger sessão com Identity | B00 | RF01 e RN01/03–05; senha não aparece em logs; 401 JSON; CSRF testado; cadastro não concede admin. |
 | B03 / P0 / M | Recuperar conta com e-mail de desenvolvimento e limitar abuso | B02 | Resposta genérica para conta inexistente; token expira e é de uso único; rate limit retorna 429; nenhuma mensagem real enviada. |
 | B04 / P0 / M | Criar perfil autodeclarado PF/PJ | B02 | RF02/RN02; usuário sem perfil pode alugar; um perfil por conta; outro usuário não lê campos privados nem edita. |

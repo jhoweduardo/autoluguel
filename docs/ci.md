@@ -1,6 +1,6 @@
 # CI da B01
 
-Estado desta entrega: **builds e contrato preparados localmente; testes/harness e execução no GitHub ainda pendentes**. Este documento não aprova B01. Consulte o [controle](qa/B01-001-controle.md) e o [refinamento](produto/B01-refinamento.md).
+Estado: **B01 concluída**. A [entrega final e evidências de QA](entregas/B01.md) registram a execução verde e a prova de que uma falha obrigatória deixa o check agregado vermelho.
 
 ## Execução e checks
 
@@ -11,8 +11,12 @@ O arquivo [ci.yml](../.github/workflows/ci.yml) prepara GitHub Actions para push
 | `Build .NET` | .NET 10, restore em modo bloqueado, build Release sem nova restauração e lockfiles preservados |
 | `Build web` | Node 24, `npm ci`, TypeScript/Vite e lockfile preservado |
 | `Validate OpenAPI` | Ferramenta isolada com lockfile, schema OpenAPI e referências válidos |
+| `Test .NET` e `Test web` | Suítes unitária e Playwright executadas; suíte vazia, falha ou ignorados não passam |
+| `Test PostgreSQL connection` | Banco descartável exclusivo; prontidão 200 com banco e 503 após parada controlada |
+| `Test CI failure gates` | Casos negativos de schema, referências, lockfile npm e saída de teste |
+| `Required CI checks` | Todos os sete jobs obrigatórios devem concluir com sucesso |
 
-Qualquer comando obrigatório com saída diferente de zero falha seu job e a execução. Não há `continue-on-error`, supressão de saída, deploy, publicação de pacote/imagem/site, upload de artefatos ou acesso a banco compartilhado. Uma execução verde desta **fase parcial** demonstra apenas os três checks acima, não testes nem o aceite integral da B01.
+Qualquer comando obrigatório com saída diferente de zero falha seu job e a execução. Não há `continue-on-error`, supressão de saída, deploy, publicação de pacote/imagem/site, upload de artefatos ou acesso a banco compartilhado.
 
 As actions estão fixadas por SHA consultada nas tags oficiais: checkout v6.0.2, setup-node v6.5.0 e setup-dotnet v5.4.0. .NET 10 e Node 24 recebem o patch disponível da linha especificada; as versões efetivas ficam nos logs. O `global.json` continua definindo a seleção local de SDK. Atualizações de action/ferramenta devem ser revisadas e ter SHA/lockfile coerentes.
 
@@ -44,12 +48,17 @@ O token do workflow tem somente `contents: read`, e checkout não persiste crede
 
 Pipeline com falha e merge bloqueado são coisas distintas. Exigir checks no GitHub é uma configuração externa de regras/proteção que depende de permissões e recursos disponíveis, ainda não executada nem comprovada. Publicar/envio de commits ou abrir PR exige a autorização aplicável do responsável. A existência local do workflow não comprova execução hospedada.
 
-## Transferência ao QA independente
+## Reproduzir os testes
 
-Somente depois desta entrega e do congelamento pelo coordenador, QA recebe o workflow com exclusividade para adicionar orquestração de testes/harness: suites .NET e Playwright existentes, integração de readiness 200/503 com PostgreSQL 17 exclusivo e cenários proporcionais de falha/isolamento/limpeza. Essas etapas **não existem nesta entrega de desenvolvimento**; nenhum placeholder é apresentado como teste passando.
+Depois da instalação e dos builds, use Node 24 no PATH, inclusive para os processos filhos. Para o teste web, instale Chromium com Playwright em `apps/web`. Para a integração, mantenha o Docker ativo e a imagem `postgres:17-alpine` disponível.
 
-O futuro recurso PostgreSQL precisa ser exclusivo do job/run, usar credenciais sintéticas e conexão explícita, sem volumes do Compose de desenvolvimento. Iniciar um serviço não conta como teste integrado. Não criar entidades/migrations para B01: o host atual permite comprovar conexão; constraints e transições de reservas continuam futuras.
+```powershell
+node tests/ci/run-suite.mjs unit
+node tests/ci/run-suite.mjs web
+node --test tests/ci/gates.spec.mjs
+node tests/ci/readiness.mjs
+```
 
-QA deverá verificar especialmente checkout sem dependências prévias, incompatibilidade de lockfile, contrato inválido, propagação real de falha de teste, descoberta de suites essenciais, isolamento de recursos e limpeza em sucesso/falha/cancelamento. Testes e harness pertencem ao QA, não ao autor desta automação de build/contrato. Se aparecer defeito de build/contrato, a correção volta ao backend e exige nova entrega.
+O smoke cria e remove seu próprio PostgreSQL, sem volumes do Compose de desenvolvimento. A prova é de conexão e isolamento operacional; não cobre migrations ou reservas.
 
 Fontes técnicas: [workflow syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax), [setup-node](https://github.com/actions/setup-node), [setup-dotnet](https://github.com/actions/setup-dotnet) e [API do Swagger Parser](https://github.com/APIDevTools/swagger-parser/blob/main/docs/swagger-parser.md). Fontes de produto: refinamento B01 e ADR 0007. Nenhum workspace Postman, API key ou publicação é necessário à validação estrutural local.

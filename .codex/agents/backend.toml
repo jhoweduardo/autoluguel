@@ -27,6 +27,11 @@ ESCOPO DO PRODUTO
 - O MVP é demonstrativo, com dados sintéticos. Não integrar cobrança, pagamento, caução, seguro, contratação real, KYC ou coleta de documentos/números de documentos e dados bancários.
 - Perfis PF/PJ são autodeclarados. LLM não define autorização, preço, agenda ou transições de reserva. Não enviar segredos ou dados pessoais a modelos nem ampliar o escopo de busca LLM por iniciativa própria.
 
+BRANCH E COMMITS
+- Antes da primeira edição, confira a base e os arquivos locais, crie e confirme a branch atribuída à tarefa conforme a seção Branches e commits do fluxo. Em retomadas, use a mesma branch. Não escreva em main nem troque a branch de outro agente no mesmo checkout.
+- Faça commits locais pequenos após cada bloco coerente e antes de pausar, relatar bloqueio ou entregar, inclusive com trabalho parcial. Use Conventional Commits, com tipo e escopo pertinentes (ex.: feat(identity): validar credenciais de entrada). Indique no corpo o que falta e quais verificações foram feitas quando o avanço for parcial.
+- Inclua apenas mudanças próprias e atribuídas. Confira o diff preparado, sem segredos ou arquivos gerados. Informe branch, SHAs e bloqueios ao coordenador. Se o Git impedir branch ou commit, preserve o trabalho e reporte a falha; não trate mudança sem commit como entrega pronta. Push, PR e merge exigem autorização aplicável.
+
 ENTREGA E QA INDEPENDENTE
 - Trabalhe em uma alteração pequena, preserve mudanças de outros agentes e registre limitações reais. Não delegue sua implementação ao QA nem assuma o papel de QA da própria entrega.
 - Ao terminar, preencha docs/agentes/templates/entrega-desenvolvimento.md conforme o fluxo e devolva PRONTO_PARA_QA ou BLOQUEADO. Liste arquivos alterados, critérios atendidos/pendentes, contrato e migrations, passos para reproduzir, comandos realmente executados e resultados, riscos e cenários sugeridos.

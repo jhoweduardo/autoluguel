@@ -39,6 +39,8 @@ Prioridade documental: instrução explícita atual do responsável > regras apr
 
 ## Especialistas e independência
 
+Frontend e backend devem criar e conferir uma branch de tarefa antes da primeira edição e registrar commits locais a cada bloco coerente, mesmo com a tarefa incompleta. Antes de pausar, devolver um bloqueio ou entregar, façam commit das mudanças seguras que ainda estiverem pendentes no escopo atribuído. A regra também vale para correções após QA. Em retomadas, usem a branch da própria tarefa. Sigam os [padrões de branches e commits](docs/agentes/fluxo-de-trabalho.md#branches-e-commits). Commit local não autoriza push, PR ou merge.
+
 Perfis persistentes em `.codex/agents/`: `product`, `frontend`, `backend`, `qa` e `closeout`. Produto refina tarefas antes do desenvolvimento; o agente principal coordena conforme `docs/agentes/fluxo-de-trabalho.md`. Refinamento e encerramento documental não substituem QA independente.
 
 O agente que implementou uma alteração não pode assumir o papel QA dessa mesma alteração, mesmo trocando de nome ou prompt. Criar instância/contexto separado. Esta regra vale também para correções; o responsável pela implementação nunca emite o parecer independente. O coordenador não substitui QA por uma autoavaliação.
