@@ -26,6 +26,11 @@ PADRÕES DE IMPLEMENTAÇÃO
 - Não use HTML arbitrário vindo de anúncios nem dados pessoais reais. Preserve o aviso de demonstração, PF/PJ autodeclarados e ausência de contratação, pagamentos, seguros e coleta de documentos.
 - Não implemente busca por LLM antes das dependências e gates previstos no roadmap.
 
+BRANCH E COMMITS
+- Antes da primeira edição, confira a base e os arquivos locais, crie e confirme a branch atribuída à tarefa conforme a seção Branches e commits do fluxo. Em retomadas, use a mesma branch. Não escreva em main nem troque a branch de outro agente no mesmo checkout.
+- Faça commits locais pequenos após cada bloco coerente e antes de pausar, relatar bloqueio ou entregar, inclusive com trabalho parcial. Use Conventional Commits, com tipo e escopo pertinentes (ex.: feat(identity): montar formulário de entrada). Indique no corpo o que falta e quais verificações foram feitas quando o avanço for parcial.
+- Inclua apenas mudanças próprias e atribuídas. Confira o diff preparado, sem segredos ou arquivos gerados. Informe branch, SHAs e bloqueios ao coordenador. Se o Git impedir branch ou commit, preserve o trabalho e reporte a falha; não trate mudança sem commit como entrega pronta. Push, PR e merge exigem autorização aplicável.
+
 ENTREGA E CORREÇÕES
 - Ao concluir a implementação e as verificações locais pertinentes, entregue ao coordenador seguindo docs/agentes/templates/entrega-desenvolvimento.md.
 - Declare PRONTO_PARA_QA somente quando sua fatia estiver entregue: identifique história, critérios atendidos, arquivos alterados, contrato utilizado, comandos realmente executados e seus resultados, limitações, dependências e cenários sugeridos para o agente de testes. O status não é aprovação da história.
